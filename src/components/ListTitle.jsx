@@ -19,7 +19,7 @@ const ListTitle = ({ lists, list, colors, setLists }) => {
       console.log("initial")
       setLists(newlists)
     } else if (name !== initialFocus) {
-      fetch(`https://todo-app-git-main-etherealhero.vercel.app/lists/${id}`, {
+      fetch(`http://localhost:3001/lists/${id}`, {
         method: "PATCH",
         body: JSON.stringify({ name }),
         headers: { "Content-Type": "application/json" },
@@ -35,14 +35,11 @@ const ListTitle = ({ lists, list, colors, setLists }) => {
     newlists.find((l) => l.id === list.id).colorId = color.id
     setLists(newlists)
 
-    fetch(
-      `https://todo-app-git-main-etherealhero.vercel.app/lists/${list.id}`,
-      {
-        method: "PATCH",
-        body: JSON.stringify({ colorId: color.id }),
-        headers: { "Content-Type": "application/json" },
-      }
-    )
+    fetch(`http://localhost:3001/lists/${list.id}`, {
+      method: "PATCH",
+      body: JSON.stringify({ colorId: color.id }),
+      headers: { "Content-Type": "application/json" },
+    })
   }
 
   return (
