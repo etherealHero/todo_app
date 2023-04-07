@@ -15,7 +15,7 @@ function App() {
 
   useEffect(() => {
     // lists
-    fetch("http://localhost:3001/lists")
+    fetch("https://todo-app-db-6rqr.onrender.com/lists")
       .then((response) => response.json())
       .then((data) => {
         if (localStorage.getItem("listId") === null)
@@ -25,26 +25,26 @@ function App() {
       })
 
     // colors
-    fetch("http://localhost:3001/colors")
+    fetch("https://todo-app-db-6rqr.onrender.com/colors")
       .then((response) => response.json())
       .then((data) => setColors(data))
 
     // tasks
-    fetch("http://localhost:3001/tasks")
+    fetch("https://todo-app-db-6rqr.onrender.com/tasks")
       .then((response) => response.json())
       .then((data) => setTasks(data))
   }, [])
 
   const removeList = (list) => {
-    fetch(`http://localhost:3001/lists/${list.id}`, { method: "DELETE" }).then(
-      () => setLists(lists.filter((l) => l.id !== list.id))
-    )
+    fetch(`https://todo-app-db-6rqr.onrender.com/lists/${list.id}`, {
+      method: "DELETE",
+    }).then(() => setLists(lists.filter((l) => l.id !== list.id)))
   }
 
   const addList = (name, colorId) => {
     if (!name) return
     const list = { name, colorId }
-    return fetch("http://localhost:3001/lists", {
+    return fetch("https://todo-app-db-6rqr.onrender.com/lists", {
       method: "POST",
       body: JSON.stringify(list),
       headers: {

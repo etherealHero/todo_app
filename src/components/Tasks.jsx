@@ -14,7 +14,7 @@ const Tasks = ({ tasks, list, newTaskId, setTasks }) => {
 
       if (!text) setTasks(tasks.filter((t) => t.id !== task.id))
       else {
-        fetch("http://localhost:3001/tasks", {
+        fetch("https://todo-app-db-6rqr.onrender.com/tasks", {
           method: "POST",
           body: JSON.stringify({ listId, text, completed }),
           headers: { "Content-Type": "application/json" },
@@ -32,7 +32,7 @@ const Tasks = ({ tasks, list, newTaskId, setTasks }) => {
         newtasks.find((t) => t.id === id).text = initialFocus
         setTasks(newtasks)
       } else if (text !== initialFocus) {
-        fetch(`http://localhost:3001/tasks/${id}`, {
+        fetch(`https://todo-app-db-6rqr.onrender.com/tasks/${id}`, {
           method: "PATCH",
           body: JSON.stringify({ text }),
           headers: { "Content-Type": "application/json" },
@@ -48,9 +48,9 @@ const Tasks = ({ tasks, list, newTaskId, setTasks }) => {
   }
 
   const removeTaskHandler = (id) => {
-    fetch(`http://localhost:3001/tasks/${id}`, { method: "DELETE" }).then(() =>
-      setTasks(tasks.filter((t) => t.id !== id))
-    )
+    fetch(`https://todo-app-db-6rqr.onrender.com/tasks/${id}`, {
+      method: "DELETE",
+    }).then(() => setTasks(tasks.filter((t) => t.id !== id)))
   }
 
   return (
@@ -73,11 +73,14 @@ const Tasks = ({ tasks, list, newTaskId, setTasks }) => {
                       e.target.checked
                     setTasks(newtasks)
 
-                    fetch(`http://localhost:3001/tasks/${task.id}`, {
-                      method: "PATCH",
-                      body: JSON.stringify({ completed: e.target.checked }),
-                      headers: { "Content-Type": "application/json" },
-                    })
+                    fetch(
+                      `https://todo-app-db-6rqr.onrender.com/tasks/${task.id}`,
+                      {
+                        method: "PATCH",
+                        body: JSON.stringify({ completed: e.target.checked }),
+                        headers: { "Content-Type": "application/json" },
+                      }
+                    )
                   }}
                 />
               ) : (

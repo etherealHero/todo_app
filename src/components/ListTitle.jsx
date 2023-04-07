@@ -19,7 +19,7 @@ const ListTitle = ({ lists, list, colors, setLists }) => {
       console.log("initial")
       setLists(newlists)
     } else if (name !== initialFocus) {
-      fetch(`http://localhost:3001/lists/${id}`, {
+      fetch(`https://todo-app-db-6rqr.onrender.com/lists/${id}`, {
         method: "PATCH",
         body: JSON.stringify({ name }),
         headers: { "Content-Type": "application/json" },
@@ -35,7 +35,7 @@ const ListTitle = ({ lists, list, colors, setLists }) => {
     newlists.find((l) => l.id === list.id).colorId = color.id
     setLists(newlists)
 
-    fetch(`http://localhost:3001/lists/${list.id}`, {
+    fetch(`https://todo-app-db-6rqr.onrender.com/lists/${list.id}`, {
       method: "PATCH",
       body: JSON.stringify({ colorId: color.id }),
       headers: { "Content-Type": "application/json" },
