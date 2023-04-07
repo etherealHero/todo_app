@@ -17,7 +17,7 @@
   },
   "scripts": {
     "client": "react-scripts start",
-    "server": "json-server -w ./src/assets/db.json -p 3001",
+    "server": "node server.js",
     "dev": "concurrently \"yarn client\" \"yarn server\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
