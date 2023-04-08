@@ -4,6 +4,7 @@ import Lists from "./components/Lists"
 import ListTitle from "./components/ListTitle"
 import Tasks from "./components/Tasks"
 import AddList from "./components/AddList"
+import { JSON_API } from "./api/api"
 
 function App() {
   const [lists, setLists] = useState([])
@@ -15,7 +16,7 @@ function App() {
 
   useEffect(() => {
     // lists
-    fetch("https://todo-app-db-6rqr.onrender.com/lists")
+    fetch(`${JSON_API}lists`)
       .then((response) => response.json())
       .then((data) => {
         if (localStorage.getItem("listId") === null)
@@ -25,18 +26,18 @@ function App() {
       })
 
     // colors
-    fetch("https://todo-app-db-6rqr.onrender.com/colors")
+    fetch(`${JSON_API}colors`)
       .then((response) => response.json())
       .then((data) => setColors(data))
 
     // tasks
-    fetch("https://todo-app-db-6rqr.onrender.com/tasks")
+    fetch(`${JSON_API}tasks`)
       .then((response) => response.json())
       .then((data) => setTasks(data))
   }, [])
 
   const removeList = (list) => {
-    fetch(`https://todo-app-db-6rqr.onrender.com/lists/${list.id}`, {
+    fetch(`${JSON_API}lists/${list.id}`, {
       method: "DELETE",
     }).then(() => setLists(lists.filter((l) => l.id !== list.id)))
   }
@@ -44,7 +45,7 @@ function App() {
   const addList = (name, colorId) => {
     if (!name) return
     const list = { name, colorId }
-    return fetch("https://todo-app-db-6rqr.onrender.com/lists", {
+    return fetch(`${JSON_API}lists`, {
       method: "POST",
       body: JSON.stringify(list),
       headers: {

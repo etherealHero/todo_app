@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { JSON_API } from "../api/api"
 
 const ListTitle = ({ lists, list, colors, setLists }) => {
   const [initialFocus, setInitialFocus] = useState(null)
@@ -19,7 +20,7 @@ const ListTitle = ({ lists, list, colors, setLists }) => {
       console.log("initial")
       setLists(newlists)
     } else if (name !== initialFocus) {
-      fetch(`https://todo-app-db-6rqr.onrender.com/lists/${id}`, {
+      fetch(`${JSON_API}lists/${id}`, {
         method: "PATCH",
         body: JSON.stringify({ name }),
         headers: { "Content-Type": "application/json" },
@@ -35,7 +36,7 @@ const ListTitle = ({ lists, list, colors, setLists }) => {
     newlists.find((l) => l.id === list.id).colorId = color.id
     setLists(newlists)
 
-    fetch(`https://todo-app-db-6rqr.onrender.com/lists/${list.id}`, {
+    fetch(`${JSON_API}lists/${list.id}`, {
       method: "PATCH",
       body: JSON.stringify({ colorId: color.id }),
       headers: { "Content-Type": "application/json" },

@@ -1,6 +1,7 @@
 import classNames from "classnames"
 import CheckBox from "./CheckBox"
 import { useState } from "react"
+import { JSON_API } from "../api/api"
 
 const Tasks = ({ tasks, list, newTaskId, setTasks }) => {
   const [initialFocus, setInitialFocus] = useState(null)
@@ -14,7 +15,7 @@ const Tasks = ({ tasks, list, newTaskId, setTasks }) => {
 
       if (!text) setTasks(tasks.filter((t) => t.id !== task.id))
       else {
-        fetch("https://todo-app-db-6rqr.onrender.com/tasks", {
+        fetch("${JSON_API}tasks", {
           method: "POST",
           body: JSON.stringify({ listId, text, completed }),
           headers: { "Content-Type": "application/json" },
@@ -32,7 +33,7 @@ const Tasks = ({ tasks, list, newTaskId, setTasks }) => {
         newtasks.find((t) => t.id === id).text = initialFocus
         setTasks(newtasks)
       } else if (text !== initialFocus) {
-        fetch(`https://todo-app-db-6rqr.onrender.com/tasks/${id}`, {
+        fetch(`${JSON_API}tasks/${id}`, {
           method: "PATCH",
           body: JSON.stringify({ text }),
           headers: { "Content-Type": "application/json" },
@@ -48,7 +49,7 @@ const Tasks = ({ tasks, list, newTaskId, setTasks }) => {
   }
 
   const removeTaskHandler = (id) => {
-    fetch(`https://todo-app-db-6rqr.onrender.com/tasks/${id}`, {
+    fetch(`${JSON_API}tasks/${id}`, {
       method: "DELETE",
     }).then(() => setTasks(tasks.filter((t) => t.id !== id)))
   }
@@ -73,14 +74,11 @@ const Tasks = ({ tasks, list, newTaskId, setTasks }) => {
                       e.target.checked
                     setTasks(newtasks)
 
-                    fetch(
-                      `https://todo-app-db-6rqr.onrender.com/tasks/${task.id}`,
-                      {
-                        method: "PATCH",
-                        body: JSON.stringify({ completed: e.target.checked }),
-                        headers: { "Content-Type": "application/json" },
-                      }
-                    )
+                    fetch(`${JSON_API}tasks/${task.id}`, {
+                      method: "PATCH",
+                      body: JSON.stringify({ completed: e.target.checked }),
+                      headers: { "Content-Type": "application/json" },
+                    })
                   }}
                 />
               ) : (
