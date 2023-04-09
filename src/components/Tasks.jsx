@@ -15,7 +15,7 @@ const Tasks = ({ tasks, list, newTaskId, setTasks }) => {
 
       if (!text) setTasks(tasks.filter((t) => t.id !== task.id))
       else {
-        fetch("${JSON_API}tasks", {
+        fetch(`${JSON_API}tasks`, {
           method: "POST",
           body: JSON.stringify({ listId, text, completed }),
           headers: { "Content-Type": "application/json" },
